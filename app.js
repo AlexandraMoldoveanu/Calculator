@@ -1,3 +1,10 @@
+//Right now it works with 2 flows:
+// - chaining operatorS: 3*3*2/2+3+5
+// -simple pairs with equal : 2+3=5 -2= 3*7=21
+// It doesnt work if I chain an operator after equal: 20-5 = 15 + 5 - 3
+
+
+
 let userInput = document.querySelector(".user-input");
 let calculatorButtons = document.querySelectorAll(".calculator-button");
 let operatorButtons = document.querySelectorAll(".operator-button");
