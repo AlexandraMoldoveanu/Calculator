@@ -67,7 +67,7 @@ const clearAll = (event) => {
 
 const setCalcValues = (event) => {
     equalButton.style.backgroundColor = "teal";
-    if(resetOperator1 && operand1) {
+    if(resetOperator1) {
         operand1 = userInput.innerText;
         operator = event.target.innerText;
         event.target.style.backgroundColor = "rgb(237,145,33)"; 
