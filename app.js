@@ -2,7 +2,7 @@ let userInput = document.querySelector(".user-input");
 let calculatorButtons = document.querySelectorAll(".calculator-button");
 let operatorButtons = document.querySelectorAll(".operator-button");
 let clearButton = document.querySelector(".clear-button");
-let equalButton = document.querySelector(".equal-button"); 
+let equalButton = document.querySelector(".equal-button");
 let operand1;
 let operand2;
 let operator;
@@ -31,17 +31,17 @@ const operate = (operatorString, num1, num2) => {
     }
 }
 const isOperatorActive = () => {
-    
-    for(let i = 0; i < operatorButtons.length; i++){
-        
-        if(operatorButtons[i].style.backgroundColor === "rgb(237, 145, 33)"){
+    for(let i = 0; i < operatorButtons.length; i++){   
+        if(operatorButtons[i].style.backgroundColor === "rgb(237, 145, 33)"){   
             return true;
         }
     }
     return false;
 }
+
+
 const displayUserInput = (event) => {
-    userInput.innerText += event.target.innerText;
+   userInput.innerText += event.target.innerText;
     if(isOperatorActive()){
         clearAll();
         userInput.innerText += event.target.innerText;
@@ -52,24 +52,28 @@ const displayUserInput = (event) => {
 const clearAll = (event) => {
     userInput.innerText = "";
     operatorButtons.forEach(button => button.style.backgroundColor = "teal");
+    equalButton.style.backgroundColor = "teal";
 }
+
 
 const setCalcValues = (event) => {
+    equalButton.style.backgroundColor = "teal";
     operand1 = userInput.innerText;
     operator = event.target.innerText;
-    event.target.style.backgroundColor = "rgb(237,145,33)";
-   
-    console.log(operand1);
-    console.log(operator);
+    event.target.style.backgroundColor = "rgb(237,145,33)"; 
 }
 
-showResult = (event) => {
-    
+
+const showResult = (event) => {
+    event.target.style.backgroundColor = "rgb(237,145,33)";
     operand2 = userInput.innerText;
     result = operate(operator, operand1, operand2);
     userInput.innerText = result;
+    console.log(operand1);
+    console.log(operator);
+    console.log(operand2);
+    
 }
-
 calculatorButtons.forEach( button =>{
     button.addEventListener("click", displayUserInput);
 }) 
@@ -78,6 +82,7 @@ operatorButtons.forEach( button => {
 })
 
 clearButton.addEventListener("click", clearAll);
-equalButton.addEventListener("click", showResult);
+equalButton.addEventListener("click", showResult)
+
 
 
