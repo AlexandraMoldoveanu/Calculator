@@ -1,9 +1,3 @@
-//Right now it works with 2 flows:
-// - chaining operatorS: 3*3*2/2+3+5
-// -simple pairs with equal : 2+3=5 -2= 3*7=21
-// It doesnt work if I chain an operator after equal: 20-5 = 15 + 5 - 3
-
-
 
 let userInput = document.querySelector(".user-input");
 let calculatorButtons = document.querySelectorAll(".calculator-button");
@@ -14,6 +8,7 @@ let operand1;
 let operand2;
 let operator;
 let result;
+let resetOperator1 = false;
 
 const add = (num1, num2) => num1 + num2;
 const subtract = (num1, num2) => num1 - num2;
@@ -73,39 +68,22 @@ const clearAll = (event) => {
 
 
 const setCalcValues = (event) => {
-    equalButton.style.backgroundColor = "teal";
-    if(resetOperator1) {
-        operand1 = userInput.innerText;
-        operator = event.target.innerText;
-        event.target.style.backgroundColor = "rgb(237,145,33)"; 
-    } 
-
-    else if (operand1){
+    event.target.style.backgroundColor = "rgb(237,145,33)";
+    if (operand1 && operator) {
         operand2 = userInput.innerText;
         result = operate(operator, operand1, operand2);
         userInput.innerText = result;
-    } 
-        operand1 = userInput.innerText;
+    }
+    operand1 = userInput.innerText;
+    if (event.target.innerText === "=") {
+        event.target.style.backgroundColor = "teal";
+        operator = undefined;
+    } else {
         operator = event.target.innerText;
-        event.target.style.backgroundColor = "rgb(237,145,33)";
+    } 
+   
     
-    
-     
 }
-
-
-const showResult = (event) => {
-    event.target.style.backgroundColor = "rgb(237,145,33)";
-    operand2 = userInput.innerText;
-    result = operate(operator, operand1, operand2);
-    userInput.innerText = result;
-    console.log(operand1);
-    console.log(operator);
-    console.log(operand2);
-    resetOperator1 = true;
-}
-
-let resetOperator1 = false;
 
 calculatorButtons.forEach( button =>{
     button.addEventListener("click", displayUserInput);
@@ -114,7 +92,7 @@ operatorButtons.forEach( button => {
     button.addEventListener("click", setCalcValues);
 })
 clearButton.addEventListener("click", resetValues);
-equalButton.addEventListener("click", showResult)
+equalButton.addEventListener("click", setCalcValues)
 
 
 
