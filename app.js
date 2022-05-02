@@ -39,28 +39,51 @@ const isOperatorActive = () => {
     return false;
 }
 
+const resetValues = () => {
+    operand1 = undefined;
+    operand2 = undefined;
+    operator = undefined;
+    clearAll();
+}
 
 const displayUserInput = (event) => {
-   userInput.innerText += event.target.innerText;
+     userInput.innerText += event.target.innerText;
     if(isOperatorActive()){
         clearAll();
         userInput.innerText += event.target.innerText;
-    }  
-    
-}
+        };
+    }   
+
 
 const clearAll = (event) => {
     userInput.innerText = "";
-    operatorButtons.forEach(button => button.style.backgroundColor = "teal");
+    operatorButtons.forEach(button => {
+        button.style.backgroundColor = "teal";
+    });
     equalButton.style.backgroundColor = "teal";
+
 }
 
 
 const setCalcValues = (event) => {
     equalButton.style.backgroundColor = "teal";
-    operand1 = userInput.innerText;
-    operator = event.target.innerText;
-    event.target.style.backgroundColor = "rgb(237,145,33)"; 
+    if(resetOperator1 && operand1) {
+        operand1 = userInput.innerText;
+        operator = event.target.innerText;
+        event.target.style.backgroundColor = "rgb(237,145,33)"; 
+    } 
+
+    else if (operand1){
+        operand2 = userInput.innerText;
+        result = operate(operator, operand1, operand2);
+        userInput.innerText = result;
+    } 
+        operand1 = userInput.innerText;
+        operator = event.target.innerText;
+        event.target.style.backgroundColor = "rgb(237,145,33)";
+    
+    
+     
 }
 
 
@@ -72,16 +95,18 @@ const showResult = (event) => {
     console.log(operand1);
     console.log(operator);
     console.log(operand2);
-    
+    resetOperator1 = true;
 }
+
+let resetOperator1 = false;
+
 calculatorButtons.forEach( button =>{
     button.addEventListener("click", displayUserInput);
 }) 
 operatorButtons.forEach( button => {
     button.addEventListener("click", setCalcValues);
 })
-
-clearButton.addEventListener("click", clearAll);
+clearButton.addEventListener("click", resetValues);
 equalButton.addEventListener("click", showResult)
 
 
